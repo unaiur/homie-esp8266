@@ -53,8 +53,8 @@ export default class DetailsStep extends React.Component {
 
           <label className='label' htmlFor='device_id'>Device ID</label>
           <p className='control'>
-            <input ref='deviceId' className='input' type='text' placeholder='the-device-id' id='device_id' />
-            <span className='help'>Optional. The default value is the hardware device ID.</span>
+            <input ref='deviceId' className='input' type='text' pattern='^(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9]))$' placeholder='the-device-id' id='device_id' />
+            <span className='help'>Optional. The default value is the hardware device ID. MAY be composed of lowercase letters from <span className='tag'>a</span> to <span className='tag'>z</span>, numbers from <span className='tag'>0</span> to <span className='tag'>9</span>, and it MAY contain <span className='tag'>-</span>, but MUST NOT start or end with a <span className='tag'>-</span></span>
           </p>
 
           <p className='control'>
