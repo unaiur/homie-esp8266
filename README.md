@@ -2,6 +2,8 @@ Configurator for Homie for ESP8266
 ==================================
 
 [![wercker status](https://app.wercker.com/status/8a8bf673807753630086402514ff3bc0/s/configurator "wercker status")](https://app.wercker.com/project/bykey/8a8bf673807753630086402514ff3bc0)
+[![Dependency Status](https://david-dm.org/marvinroger/homie-esp8266/configurator.svg)](https://david-dm.org/marvinroger/homie-esp8266/configurator)
+[![devDependency Status](https://david-dm.org/marvinroger/homie-esp8266/configurator/dev-status.svg)](https://david-dm.org/marvinroger/homie-esp8266/configurator#info=devDependencies)
 
 UI to configure an ESP8266 loaded with an Homie firmware. This branch is automatically built and [published on GitHub Pages](https://github.com/marvinroger/homie-esp8266/tree/gh-pages).
 
