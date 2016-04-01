@@ -25,6 +25,7 @@ export default class MqttStep extends React.Component {
     let creds = {};
     creds.host = this.refs.host.value;
     creds.port = parseInt(this.refs.port.value, 10);
+    creds['base_topic'] = this.refs.baseTopic.value;
 
     creds.ssl = false;
 
@@ -54,6 +55,10 @@ export default class MqttStep extends React.Component {
 
           <p className='control'>
             <input ref='port' className='input' type='number' step='1' defaultValue='1883' min='1' max='65535' placeholder='MQTT broker port' required />
+          </p>
+
+          <p className='control'>
+            <input ref='baseTopic' className='input' type='text' defaultValue='devices/' placeholder='MQTT base topic' required />
           </p>
 
           <p className='control'>

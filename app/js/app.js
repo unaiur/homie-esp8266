@@ -27,6 +27,7 @@ class App extends React.Component {
     this.state = {
       step: STEP_CONNECTION,
       name: null,
+      deviceId: null,
       wifi: { },
       mqtt: { },
       ota: { }
@@ -39,6 +40,10 @@ class App extends React.Component {
 
   setName (name) {
     this.setState({ name });
+  }
+
+  setDeviceId (deviceId) {
+    this.setState({ deviceId });
   }
 
   setWifiCreds (creds) {
@@ -60,6 +65,8 @@ class App extends React.Component {
       mqtt: this.state.mqtt,
       ota: this.state.ota
     };
+
+    if (this.state.deviceId !== null) body['device_id'] = this.state.deviceId;
 
     let options = {
       method: 'PUT',
