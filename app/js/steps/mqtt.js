@@ -25,7 +25,7 @@ export default class MqttStep extends React.Component {
     let creds = {};
     creds.host = this.refs.host.value;
     creds.port = parseInt(this.refs.port.value, 10);
-    creds['base_topic'] = this.refs.baseTopic.value;
+    if (this.refs.baseTopic.value !== '') creds['base_topic'] = this.refs.baseTopic.value;
 
     creds.ssl = false;
 
@@ -50,15 +50,15 @@ export default class MqttStep extends React.Component {
 
         <form onSubmit={ (e) => this.handleFormSubmit(e) }>
           <p className='control'>
-            <input ref='host' className='input' type='text' placeholder='MQTT broker host' required />
+            <input ref='host' className='input' type='text' placeholder='MQTT broker host (required)' required />
           </p>
 
           <p className='control'>
-            <input ref='port' className='input' type='number' step='1' defaultValue='1883' min='1' max='65535' placeholder='MQTT broker port' required />
+            <input ref='port' className='input' type='number' step='1' defaultValue='1883' min='1' max='65535' placeholder='MQTT broker port (required)' required />
           </p>
 
           <p className='control'>
-            <input ref='baseTopic' className='input' type='text' defaultValue='devices/' placeholder='MQTT base topic' required />
+            <input ref='baseTopic' className='input' type='text' placeholder='MQTT base topic (defaults to /devices)' />
           </p>
 
           <p className='control'>
@@ -73,11 +73,11 @@ export default class MqttStep extends React.Component {
               return (
                 <div>
                   <p className='control'>
-                    <input ref='username' className='input' type='text' placeholder='MQTT username' required />
+                    <input ref='username' className='input' type='text' placeholder='MQTT username (required)' required />
                   </p>
 
                   <p className='control'>
-                    <input ref='password' className='input' type={ this.state.showPassword ? 'text' : 'password' } placeholder='MQTT password' required />
+                    <input ref='password' className='input' type={ this.state.showPassword ? 'text' : 'password' } placeholder='MQTT password (required)' required />
                   </p>
 
                   <p className='control'>

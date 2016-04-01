@@ -150,7 +150,7 @@ export default class WifiStep extends React.Component {
                     if (this.state.showSsidInput) {
                       return (
                         <p className='control'>
-                          <input ref='ssid' className='input' type='text' placeholder='Network SSID' maxLength='32' required />
+                          <input ref='ssid' className='input' type='text' placeholder='Network SSID (required)' maxLength='32' required />
                         </p>
                       );
                     }

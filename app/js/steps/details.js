@@ -46,11 +46,11 @@ export default class DetailsStep extends React.Component {
 
         <form onSubmit={ (e) => this.handleFormSubmit(e) }>
           <p className='control'>
-            <input ref='name' className='input' type='text' placeholder='Friendly name of the device' required />
+            <input ref='name' className='input' type='text' placeholder='Friendly name of the device (required)' required />
           </p>
 
           <p className='control'>
-            <input ref='deviceId' className='input' type='text' placeholder='Device ID (by default the hardware ESP8266 ID)' />
+            <input ref='deviceId' className='input' type='text' placeholder='Device ID (defaults to the hardware ESP8266 ID)' />
           </p>
 
           <p className='control'>
@@ -65,15 +65,15 @@ export default class DetailsStep extends React.Component {
               return (
                 <div>
                   <p className='control'>
-                    <input ref='host' className='input' type='text' defaultValue={this.props.mqttConfig.host} placeholder='OTA server host' required />
+                    <input ref='host' className='input' type='text' defaultValue={this.props.mqttConfig.host} placeholder='OTA server host (required)' required />
                   </p>
 
                   <p className='control'>
-                    <input ref='port' className='input' type='number' step='1' defaultValue='80' min='1' max='65535' placeholder='OTA server port' required />
+                    <input ref='port' className='input' type='number' step='1' defaultValue='80' min='1' max='65535' placeholder='OTA server port (required)' required />
                   </p>
 
                   <p className='control'>
-                    <input ref='path' className='input' type='text' step='1' defaultValue='/ota' placeholder='OTA path' required />
+                    <input ref='path' className='input' type='text' step='1' defaultValue='/ota' placeholder='OTA path (required)' required />
                   </p>
 
                   <br/>
