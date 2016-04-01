@@ -131,7 +131,7 @@ class App extends React.Component {
           </ul>
         </div>
 
-        <Step baseApi={BASE_API} mqttConfig={this.state.mqtt} nextStep={() => this.nextStep()} setWifiCreds={(creds) => this.setWifiCreds(creds)} setMqttCreds={(creds) => this.setMqttCreds(creds)} setName={(name) => this.setName(name)} setOtaCreds={(creds) => this.setOtaCreds(creds)} sendConfig={() => this.sendConfig()} />
+        <Step baseApi={BASE_API} mqttConfig={this.state.mqtt} nextStep={() => this.nextStep()} setWifiCreds={(creds) => this.setWifiCreds(creds)} setMqttCreds={(creds) => this.setMqttCreds(creds)} setName={(name) => this.setName(name)} setDeviceId={(deviceId) => this.setDeviceId(deviceId)} setOtaCreds={(creds) => this.setOtaCreds(creds)} sendConfig={() => this.sendConfig()} />
       </div>
     );
   }

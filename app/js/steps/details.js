@@ -30,8 +30,10 @@ export default class DetailsStep extends React.Component {
       otaCreds.path = this.refs.path.value;
     }
 
-    this.props.setName(this.refs.name.value);
+    this.props.setName(this.ref.name.value);
+    if (this.refs.deviceId !== '') this.props.setDeviceId(this.refs.name.value);
     this.props.setOtaCreds(otaCreds);
+
     this.props.nextStep();
   }
 
@@ -45,6 +47,10 @@ export default class DetailsStep extends React.Component {
         <form onSubmit={ (e) => this.handleFormSubmit(e) }>
           <p className='control'>
             <input ref='name' className='input' type='text' placeholder='Friendly name of the device' required />
+          </p>
+
+          <p className='control'>
+            <input ref='deviceId' className='input' type='text' placeholder='Device ID (by default the hardware ESP8266 ID)' />
           </p>
 
           <p className='control'>
@@ -88,5 +94,6 @@ DetailsStep.propTypes = {
   nextStep: React.PropTypes.func.isRequired,
   mqttConfig: React.PropTypes.object.isRequired,
   setName: React.PropTypes.func.isRequired,
+  setDeviceId: React.PropTypes.func.isRequired,
   setOtaCreds: React.PropTypes.func.isRequired
 };
