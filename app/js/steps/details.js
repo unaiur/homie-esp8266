@@ -45,12 +45,16 @@ export default class DetailsStep extends React.Component {
         </p>
 
         <form onSubmit={ (e) => this.handleFormSubmit(e) }>
+          <label className='label' htmlFor='friendly_name'>Friendly name</label>
           <p className='control'>
-            <input ref='name' className='input' type='text' placeholder='Friendly name of the device (required)' required />
+            <input ref='name' className='input' type='text' placeholder='My awesome device name' id='friendly_name' required />
+            <span className='help'>Required.</span>
           </p>
 
+          <label className='label' htmlFor='device_id'>Device ID</label>
           <p className='control'>
-            <input ref='deviceId' className='input' type='text' placeholder='Device ID (defaults to the hardware ESP8266 ID)' />
+            <input ref='deviceId' className='input' type='text' placeholder='the-device-id' id='device_id' />
+            <span className='help'>Optional. The default value is the hardware device ID.</span>
           </p>
 
           <p className='control'>
@@ -64,16 +68,22 @@ export default class DetailsStep extends React.Component {
             if (this.state.showOtaInput) {
               return (
                 <div>
+                  <label className='label' htmlFor='ota_host'>OTA server host</label>
                   <p className='control'>
-                    <input ref='host' className='input' type='text' defaultValue={this.props.mqttConfig.host} placeholder='OTA server host (required)' required />
+                    <input ref='host' className='input' type='text' defaultValue={this.props.mqttConfig.host} placeholder='IP or hostname' id='ota_host' required />
+                    <span className='help'>Required.</span>
                   </p>
 
+                  <label className='label' htmlFor='ota_port'>OTA server port</label>
                   <p className='control'>
-                    <input ref='port' className='input' type='number' step='1' defaultValue='80' min='1' max='65535' placeholder='OTA server port (required)' required />
+                    <input ref='port' className='input' type='number' step='1' defaultValue='80' min='1' max='65535' placeholder='Port number' id='ota_port' required />
+                    <span className='help'>Required.</span>
                   </p>
 
+                  <label className='label' htmlFor='ota_path'>OTA HTTP path</label>
                   <p className='control'>
-                    <input ref='path' className='input' type='text' step='1' defaultValue='/ota' placeholder='OTA path (required)' required />
+                    <input ref='path' className='input' type='text' step='1' defaultValue='/ota' placeholder='HTTP path starting with /' id='ota_path' required />
+                    <span className='help'>Required.</span>
                   </p>
 
                   <br/>

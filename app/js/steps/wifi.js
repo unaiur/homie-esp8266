@@ -8,8 +8,8 @@ export default class WifiStep extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      loading: true,
-      networks: {},
+      loading: false,
+      networks: { networks: [] },
       buttonDisabled: true,
       selectedSsid: null,
       showSsidInput: false,
@@ -129,10 +129,11 @@ export default class WifiStep extends React.Component {
                 </p>
 
                 <form onSubmit={ (e) => this.handleFormSubmit(e) }>
+                  <label className='label' htmlFor='wifi_network'>Network</label>
                   <p className='control'>
                     <span className='select'>
-                      <select ref='select' onChange={ (e) => { this.handleSelectChange(e); } }>
-                        <option value='select' key='select'>Select a network...</option>
+                      <select ref='select' onChange={ (e) => { this.handleSelectChange(e); } } id='wifi_network'>
+                        <option value='select' key='select'>Select...</option>
                         { networks.map((network, i) => {
                           return (
                             <option value={i} data-ssid={ network.ssid } data-open={ network.encryption === 'Open' ? 'yes' : 'no' } onSelect={ (e) => { window.alert(network.ssid); } } key={i}>
@@ -149,9 +150,13 @@ export default class WifiStep extends React.Component {
                   {(() => {
                     if (this.state.showSsidInput) {
                       return (
-                        <p className='control'>
-                          <input ref='ssid' className='input' type='text' placeholder='Network SSID (required)' maxLength='32' required />
-                        </p>
+                        <div>
+                          <label className='label' htmlFor='wifi_ssid'>Wi-Fi SSID</label>
+                          <p className='control'>
+                            <input ref='ssid' className='input' type='text' placeholder='SSID' maxLength='32' id='wifi_ssid' required />
+                            <span className='help'>Required.</span>
+                          </p>
+                        </div>
                       );
                     }
                   })()}
@@ -160,16 +165,15 @@ export default class WifiStep extends React.Component {
                     if (this.state.showPasswordInput) {
                       return (
                         <div>
-                          <p className='control'>
-                            <input ref='password' className='input' type={ this.state.showPassword ? 'text' : 'password' } placeholder='Network password (leave blank if open network)' />
-                          </p>
-
-                          <p className='control'>
+                          <label className='label' htmlFor='wifi_password'>Wi-Fi password</label>
+                          <p className='control is-grouped'>
+                            <input ref='password' className='input' type={ this.state.showPassword ? 'text' : 'password' } placeholder='Password' id='wifi_password' />
                             <label className='checkbox'>
                               <input type='checkbox' onChange={ (e) => this.handleHiddenChange(e) } />
                               Show password
                             </label>
                           </p>
+                          <span className='help'>Optional. Leave blank if open network.</span>
                         </div>
                       );
                     }

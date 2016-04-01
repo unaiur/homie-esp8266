@@ -49,16 +49,22 @@ export default class MqttStep extends React.Component {
         </p>
 
         <form onSubmit={ (e) => this.handleFormSubmit(e) }>
+          <label className='label' htmlFor='mqtt_broker_address'>MQTT broker address</label>
           <p className='control'>
-            <input ref='host' className='input' type='text' placeholder='MQTT broker host (required)' required />
+            <input ref='host' className='input' type='text' placeholder='IP or hostname' id='mqtt_broker_address' required />
+            <span className='help'>Required.</span>
           </p>
 
+          <label className='label' htmlFor='mqtt_broker_port'>MQTT broker port</label>
           <p className='control'>
-            <input ref='port' className='input' type='number' step='1' defaultValue='1883' min='1' max='65535' placeholder='MQTT broker port (required)' required />
+            <input ref='port' className='input' type='number' step='1' defaultValue='1883' min='1' max='65535' placeholder='Port number' id='mqtt_broker_port' required />
+            <span className='help'>Required.</span>
           </p>
 
+          <label className='label' htmlFor='homie_base_topic'>Homie base topic</label>
           <p className='control'>
-            <input ref='baseTopic' className='input' type='text' placeholder='MQTT base topic (defaults to /devices)' />
+            <input ref='baseTopic' className='input' type='text' placeholder='Base topic' id='homie_base_topic' />
+            <span className='help'>Optional. The default value is <span className='tag'>devices/</span>.</span>
           </p>
 
           <p className='control'>
@@ -72,20 +78,21 @@ export default class MqttStep extends React.Component {
             if (this.state.showLoginInput) {
               return (
                 <div>
+                  <label className='label' htmlFor='mqtt_username'>MQTT username</label>
                   <p className='control'>
-                    <input ref='username' className='input' type='text' placeholder='MQTT username (required)' required />
+                    <input ref='username' className='input' type='text' placeholder='Username' id='mqtt_username' required />
+                    <span className='help'>Required.</span>
                   </p>
 
-                  <p className='control'>
-                    <input ref='password' className='input' type={ this.state.showPassword ? 'text' : 'password' } placeholder='MQTT password (required)' required />
-                  </p>
-
-                  <p className='control'>
+                  <label className='label' htmlFor='mqtt_password'>MQTT password</label>
+                  <p className='control is-grouped'>
+                    <input ref='password' className='input' type={ this.state.showPassword ? 'text' : 'password' } placeholder='Password' id='mqtt_password' required />
                     <label className='checkbox'>
                       <input type='checkbox' onChange={ (e) => this.handleHiddenChange(e) } />
                       Show password
                     </label>
                   </p>
+                  <span className='help'>Required.</span>
 
                   <br/>
                 </div>
