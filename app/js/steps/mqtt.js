@@ -6,16 +6,21 @@ export default class MqttStep extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      showLoginInput: false,
-      showPassword: false
+      auth: false,
+      showPassword: false,
+      ssl: false
     };
   }
 
-  handleAuthChange (e) {
-    this.setState({ showLoginInput: e.target.checked });
+  handleSslCheckbox (e) {
+    this.setState({ ssl: e.target.checked });
   }
 
-  handleHiddenChange (e) {
+  handleAuthCheckbox (e) {
+    this.setState({ auth: e.target.checked });
+  }
+
+  handleHiddenCheckbox (e) {
     this.setState({ showPassword: e.target.checked });
   }
 
@@ -28,10 +33,13 @@ export default class MqttStep extends React.Component {
     if (this.refs.baseTopic.value !== '') creds['base_topic'] = this.refs.baseTopic.value;
 
     creds.ssl = false;
+    if (this.state.ssl) {
+      creds.ssl = true;
+      if (this.refs.fingerprint.value !== '') creds['fingerprint'] = this.refs.fingerprint.value;
+    }
 
     creds.auth = false;
-
-    if (this.state.showLoginInput) {
+    if (this.state.auth) {
       creds.auth = true;
       creds.username = this.refs.username.value;
       creds.password = this.refs.password.value;
@@ -69,13 +77,34 @@ export default class MqttStep extends React.Component {
 
           <p className='control'>
             <label className='checkbox'>
-              <input ref='auth' type='checkbox' onChange={ (e) => this.handleAuthChange(e) } />
+              <input ref='ssl' type='checkbox' onChange={ (e) => this.handleSslCheckbox(e) } />
+              Use SSL
+            </label>
+          </p>
+
+          {(() => {
+            if (this.state.ssl) {
+              return (
+                <div>
+                  <label className='label' htmlFor='mqtt_fingerprint'>SHA-1 certificate fingerprint</label>
+                  <p className='control'>
+                    <input ref='fingerprint' className='input' type='text' pattern='^([a-fA-F0-9]{2}[\ :]){19}[a-fA-F0-9]{2}$' placeholder='Fingerprint' id='mqtt_fingerprint' />
+                    <span className='help'>Optional. Can be lower-case, upper-case, separated by spaced or <span className='tag'>:</span>.</span>
+                  </p>
+                </div>
+              );
+            }
+          })()}
+
+          <p className='control'>
+            <label className='checkbox'>
+              <input ref='auth' type='checkbox' onChange={ (e) => this.handleAuthCheckbox(e) } />
               Use MQTT authentication
             </label>
           </p>
 
           {(() => {
-            if (this.state.showLoginInput) {
+            if (this.state.auth) {
               return (
                 <div>
                   <label className='label' htmlFor='mqtt_username'>MQTT username</label>
@@ -88,7 +117,7 @@ export default class MqttStep extends React.Component {
                   <p className='control is-grouped'>
                     <input ref='password' className='input' type={ this.state.showPassword ? 'text' : 'password' } placeholder='Password' id='mqtt_password' required />
                     <label className='checkbox'>
-                      <input type='checkbox' onChange={ (e) => this.handleHiddenChange(e) } />
+                      <input type='checkbox' onChange={ (e) => this.handleHiddenCheckbox(e) } />
                       Show password
                     </label>
                   </p>

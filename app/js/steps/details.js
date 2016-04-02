@@ -7,12 +7,17 @@ export default class DetailsStep extends React.Component {
     super(props);
 
     this.state = {
-      showOtaInput: false
+      ota: false,
+      ssl: false
     };
   }
 
-  handleOtaChange (e) {
-    this.setState({ showOtaInput: e.target.checked });
+  handleOtaCheckbox (e) {
+    this.setState({ ota: e.target.checked });
+  }
+
+  handleSslCheckbox (e) {
+    this.setState({ ssl: e.target.checked });
   }
 
   handleFormSubmit (e) {
@@ -21,17 +26,23 @@ export default class DetailsStep extends React.Component {
     let otaCreds = {};
     otaCreds.enabled = false;
 
-    if (this.state.showOtaInput) {
+    if (this.state.ota) {
       otaCreds.enabled = true;
-      otaCreds.ssl = false;
 
       otaCreds.host = this.refs.host.value;
       otaCreds.port = parseInt(this.refs.port.value, 10);
+
+      otaCreds.ssl = false;
+      if (this.state.ssl) {
+        otaCreds.ssl = true;
+        if (this.refs.fingerprint.value !== '') otaCreds['fingerprint'] = this.refs.fingerprint.value;
+      }
+
       otaCreds.path = this.refs.path.value;
     }
 
     this.props.setName(this.refs.name.value);
-    if (this.refs.deviceId !== '') this.props.setDeviceId(this.refs.name.value);
+    if (this.refs.deviceId !== '') this.props.setDeviceId(this.refs.deviceId.value);
     this.props.setOtaCreds(otaCreds);
 
     this.props.nextStep();
@@ -59,13 +70,13 @@ export default class DetailsStep extends React.Component {
 
           <p className='control'>
             <label className='checkbox'>
-              <input ref='ota' type='checkbox' onChange={ (e) => this.handleOtaChange(e) } />
+              <input ref='ota' type='checkbox' onChange={ (e) => this.handleOtaCheckbox(e) } />
               Enable OTA
             </label>
           </p>
 
           {(() => {
-            if (this.state.showOtaInput) {
+            if (this.state.ota) {
               return (
                 <div>
                   <label className='label' htmlFor='ota_host'>OTA server host</label>
@@ -79,6 +90,27 @@ export default class DetailsStep extends React.Component {
                     <input ref='port' className='input' type='number' step='1' defaultValue='80' min='1' max='65535' placeholder='Port number' id='ota_port' required />
                     <span className='help'>Required.</span>
                   </p>
+
+                  <p className='control'>
+                    <label className='checkbox'>
+                      <input ref='ssl' type='checkbox' onChange={ (e) => this.handleSslCheckbox(e) } />
+                      Use SSL
+                    </label>
+                  </p>
+
+                  {(() => {
+                    if (this.state.ssl) {
+                      return (
+                        <div>
+                          <label className='label' htmlFor='ota_fingerprint'>SHA-1 certificate fingerprint</label>
+                          <p className='control'>
+                            <input ref='fingerprint' className='input' type='text' pattern='^([a-fA-F0-9]{2}[\ :]){19}[a-fA-F0-9]{2}$' placeholder='Fingerprint' id='ota_fingerprint' />
+                            <span className='help'>Optional. Can be lower-case, upper-case, separated by spaced or <span className='tag'>:</span>.</span>
+                          </p>
+                        </div>
+                      );
+                    }
+                  })()}
 
                   <label className='label' htmlFor='ota_path'>OTA HTTP path</label>
                   <p className='control'>
