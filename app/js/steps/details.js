@@ -30,7 +30,7 @@ export default class DetailsStep extends React.Component {
       otaCreds.path = this.refs.path.value;
     }
 
-    this.props.setName(this.ref.name.value);
+    this.props.setName(this.refs.name.value);
     if (this.refs.deviceId !== '') this.props.setDeviceId(this.refs.name.value);
     this.props.setOtaCreds(otaCreds);
 

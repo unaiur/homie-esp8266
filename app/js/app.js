@@ -25,7 +25,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      step: STEP_DETAILS,
+      step: STEP_CONNECTION,
       name: null,
       deviceId: null,
       wifi: { },

@@ -174,6 +174,7 @@ export default class WifiStep extends React.Component {
                             </label>
                           </p>
                           <span className='help'>Optional. Leave blank if open network.</span>
+                          <br/>
                         </div>
                       );
                     }
