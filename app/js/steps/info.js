@@ -17,7 +17,6 @@ export default class InfoStep extends React.Component {
     let interval;
     let done = false;
     let deviceinfo = () => {
-      console.log('Triggering request');
       window.fetch(`${this.props.baseApi}/device-info`).then((res) => {
         if (res.ok && !done) {
           done = true;

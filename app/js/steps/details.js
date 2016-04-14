@@ -42,7 +42,7 @@ export default class DetailsStep extends React.Component {
     }
 
     this.props.setName(this.refs.name.value);
-    if (this.refs.deviceId !== '') this.props.setDeviceId(this.refs.deviceId.value);
+    if (this.refs.deviceId.value !== '') this.props.setDeviceId(this.refs.deviceId.value);
     this.props.setOtaCreds(otaCreds);
 
     this.props.nextStep();
