@@ -105,8 +105,8 @@ let es67 = (prod = false) => {
   }
 
   const plugins = [
-    rollupBabel({ babelrc: false, presets: ['es2015-rollup', 'stage-3', 'react'] }),
-    rollupNodeResolve({ jsnext: true, main: true }),
+    rollupBabel({ babelrc: false, exclude: './node_modules/**', presets: ['es2015-rollup', 'stage-3', 'react'] }),
+    rollupNodeResolve({ jsnext: true, main: true, browser: true }),
     rollupCommonjs({ include: './node_modules/**' }),
     rollupReplace({ 'process.env.NODE_ENV': JSON.stringify(env) })
   ];

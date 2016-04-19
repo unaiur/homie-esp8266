@@ -10,7 +10,7 @@ build:
         code: cp -r public/ $WERCKER_OUTPUT_DIR
     - script:
         name: remove source map
-        code: rm $WERCKER_OUTPUT_DIR/public/js/bundle.min.js.map
+        code: rm $WERCKER_OUTPUT_DIR/public/js/app.js.map
     - script:
         name: copy index.html
         code: cp index.html $WERCKER_OUTPUT_DIR
