@@ -8,7 +8,6 @@ import del from 'del'; // delete files
 import imagemin from 'gulp-imagemin';
 import runSequence from 'run-sequence';
 import notifier from 'node-notifier';
-import sourcemaps from 'gulp-sourcemaps';
 import uglify from 'gulp-uglify';
 import rollup from 'gulp-rollup';
 import rollupNodeResolve from 'rollup-plugin-node-resolve';
@@ -97,10 +96,8 @@ gulp.task('buildpublic:imagemin', function () {
 // Babel
 
 let es67 = (prod = false) => {
-  let useSourcemaps = false;
   let env = 'development';
   if (prod) {
-    useSourcemaps = true;
     env = 'production';
   }
 
@@ -111,19 +108,12 @@ let es67 = (prod = false) => {
     rollupReplace({ 'process.env.NODE_ENV': JSON.stringify(env) })
   ];
 
-  let stream = gulp.src('./app/js/app.js', {read: false})
+  return gulp.src('./app/js/app.js', {read: false})
     .pipe(rollup({
-      sourceMap: useSourcemaps,
       format: 'iife',
       plugins
     }))
     .pipe(plumber(errorHandler('es6-7')));
-
-  if (useSourcemaps) {
-    stream.pipe(sourcemaps.init({ loadMaps: true }));
-  }
-
-  return stream;
 };
 
 gulp.task('es6-7:dev', function () {
@@ -134,7 +124,6 @@ gulp.task('es6-7:dev', function () {
 gulp.task('es6-7:dist', function () {
   return es67(true)
     .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./public/js/'));
 });
 
