@@ -17,10 +17,8 @@ version = "1.0.0" >
   <icon src="public/img/logo.png" />
   <splash src="public/img/logo.png" />
 
-  <feature name="http://api.phonegap.com/1.0/network" />
-
   <plugin name="cordova-plugin-whitelist" spec="^1.0.0" />
-  <plugin name="cordova-plugin-crosswalk-webview" spec="^1.0.0" />
+  <plugin name="cordova-plugin-crosswalk-webview" spec="1.5.0" /> <!--1.6.1 has issue Could not find property 'xwalkMultipleApk' on root project 'project'.  -->
 
   <access origin="http://homie.config" />
 </widget>
