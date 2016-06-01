@@ -9,6 +9,7 @@ namespace HomieInternals {
     char deviceId[MAX_DEVICE_ID_LENGTH];
 
     struct WiFi {
+      bool useWPS;
       char ssid[MAX_WIFI_SSID_LENGTH];
       char password[MAX_WIFI_PASSWORD_LENGTH];
     } wifi;

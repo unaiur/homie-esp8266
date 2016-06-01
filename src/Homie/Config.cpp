@@ -84,6 +84,7 @@ bool Config::load() {
   const char* reqName = parsedJson["name"];
   const char* reqWifiSsid = parsedJson["wifi"]["ssid"];
   const char* reqWifiPassword = parsedJson["wifi"]["password"];
+  bool useWPS = parsedJson["wifi"].as<JsonObject&>().containsKey("useWPS");
   bool reqMqttMdns = false;
   if (parsedJson["mqtt"].as<JsonObject&>().containsKey("mdns")) reqMqttMdns = true;
   bool reqOtaMdns = false;

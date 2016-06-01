@@ -49,8 +49,12 @@ bool BootNormal::_subscribe1OrFail() {
 }
 
 void BootNormal::_wifiConnect() {
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(this->_interface->config->get().wifi.ssid, this->_interface->config->get().wifi.password);
+  if (!this->_interface->config->get().wifi.useWPS) {
+    WiFi.mode(WIFI_STA);
+    WiFi.begin(this->_interface->config->get().wifi.ssid, this->_interface->config->get().wifi.password);
+  }
+  else if (WiFi.SSID().length() == 0)
+    WiFi.beginWPSConfig();
 }
 
 void BootNormal::_mqttConnect() {

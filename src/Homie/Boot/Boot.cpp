@@ -19,10 +19,13 @@ void Boot::setup() {
     digitalWrite(this->_interface->led.pin, !this->_interface->led.on);
   }
 
-  WiFi.persistent(false); // Don't persist data on EEPROM since this is handled by Homie
-  WiFi.disconnect(); // Reset network state
-
-  WiFi.hostname(this->_interface->config->get().deviceId);
+  if (this->_interface->config->get().wifi.useWPS) {
+    WiFi.begin();
+  } else {
+    WiFi.persistent(false); // Don't persist data on EEPROM since this is handled by Homie
+    WiFi.disconnect(); // Reset network state
+    WiFi.hostname(this->_interface->config->get().deviceId);
+  }
 
   this->_interface->logger->log(F("** Booting into "));
   this->_interface->logger->log(this->_name);
